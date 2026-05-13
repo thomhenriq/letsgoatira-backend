@@ -9,6 +9,8 @@ import { Attendance } from './entities/attendance.entity';
 import { AddAttendancesDto } from './dtos/add-attendances.dto';
 import { MembersService } from '@/members/members.service';
 import { IAddAttendance } from './interfaces/add-attendance.interface';
+import { IUploadFile } from '@/storage/interfaces/upload-file.interface';
+import { Photo } from './entities/photo.entity';
 
 @Injectable()
 export class EventsService {
@@ -22,6 +24,9 @@ export class EventsService {
     @InjectRepository(Attendance)
     private attendancesRepository: Repository<Attendance>,
 
+    @InjectRepository(Photo)
+    private photosRepository: Repository<Photo>,
+
     private storageService: StorageService,
     private membersService: MembersService,
   ) {}
@@ -32,7 +37,7 @@ export class EventsService {
   ): Promise<Event> {
     const uploadedCoverImage = await this.storageService.uploadFile(
       coverImageFile,
-      'events',
+      'events/cover',
     );
 
     const location = this.locationsRepository.create({
@@ -142,5 +147,58 @@ export class EventsService {
     }
 
     return attendances;
+  }
+
+  async addPhotos(
+    eventId: string,
+    photosFiles: Express.Multer.File[],
+  ): Promise<IUploadFile[]> {
+    const event = await this.findById(eventId);
+
+    if (!event) {
+      throw new BadRequestException('O evento não existe');
+    }
+
+    const uploadedPhotos: IUploadFile[] = [];
+
+    for (const photo of photosFiles) {
+      const uploadedPhoto = await this.storageService.uploadFile(
+        photo,
+        `events/photos/${event.id}`,
+      );
+
+      const createdPhoto = this.photosRepository.create({
+        event: event,
+        url: uploadedPhoto.url,
+        key: uploadedPhoto.key,
+      });
+
+      uploadedPhotos.push(uploadedPhoto);
+      await this.photosRepository.save(createdPhoto);
+    }
+
+    return uploadedPhotos;
+  }
+
+  async deletePhoto(eventId: string, photoId: string): Promise<void> {
+    const event = await this.findById(eventId);
+
+    if (!event) {
+      throw new BadRequestException('O evento não existe');
+    }
+
+    const photo = await this.photosRepository.findOne({
+      where: {
+        id: photoId,
+        event: { id: eventId },
+      },
+    });
+
+    if (!photo) {
+      throw new BadRequestException('Foto não encontrada');
+    }
+
+    await this.storageService.deleteFile(photo.key);
+    await this.photosRepository.remove(photo);
   }
 }

@@ -7,11 +7,11 @@ export class Attendance {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Event)
+  @ManyToOne(() => Event, (event) => event.attendances)
   @JoinColumn()
   event: Event;
 
-  @ManyToOne(() => Member)
+  @ManyToOne(() => Member, (member) => member.attendances)
   @JoinColumn()
   member: Member;
 }

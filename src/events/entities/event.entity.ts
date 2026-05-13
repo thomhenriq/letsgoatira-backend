@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Attendance } from './attendance.entity';
 import { Location } from './location.entity';
+import { Photo } from './photo.entity';
 
 @Entity('events')
 export class Event {
@@ -34,4 +35,7 @@ export class Event {
 
   @OneToMany(() => Attendance, (attendance) => attendance.event)
   attendances: Attendance[];
+
+  @OneToMany(() => Photo, (photo) => photo.event)
+  photos: Photo[];
 }
