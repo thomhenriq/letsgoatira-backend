@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Attendance } from "@/events/entities/attendance.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 export enum MemberRole {
     TRAINEE = "trainee",
@@ -26,4 +27,7 @@ export class Member {
 
     @Column()
     avatarUrl: string
+
+    @OneToMany(() => Attendance, (attendance) => attendance.member)
+    attendances: Attendance[]
 }

@@ -3,6 +3,7 @@ import { CreateEventDto } from './dtos/create-event.dto';
 import { FileSizeValidationPipe } from '@/pipes/file-size-validation/file-size-validation.pipe';
 import { EventsService } from './events.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AddAttendancesDto } from './dtos/add-attendances.dto';
 
 @Controller('events')
 export class EventsController {
@@ -23,5 +24,10 @@ export class EventsController {
     @Get(':id')
     findById(@Param('id') id: string) {
         return this.eventsService.findById(id)
+    }
+
+    @Post(":id/attendances")
+    addAttendances(@Param('id') id: string, @Body() body: AddAttendancesDto) {
+        return this.eventsService.addAttendances(id, body)
     }
 }

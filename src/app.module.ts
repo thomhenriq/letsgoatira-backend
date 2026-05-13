@@ -17,7 +17,7 @@ import { EventsModule } from './events/events.module';
         type: 'postgres',
         url: configService.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
-        synchronize: true
+        synchronize: true,
       }),
     }),
     MembersModule,

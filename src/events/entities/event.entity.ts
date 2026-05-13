@@ -3,8 +3,10 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  OneToMany,
+  PrimaryGeneratedColumn
 } from "typeorm"
+import { Attendance } from "./attendance.entity"
 import { Location } from "./location.entity"
 
 @Entity("events")
@@ -29,4 +31,7 @@ export class Event {
   })
   @JoinColumn()
   location: Location
+
+  @OneToMany(() => Attendance, (attendance) => attendance.event)
+  attendances: Attendance[]
 }

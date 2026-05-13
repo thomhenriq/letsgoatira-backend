@@ -46,4 +46,10 @@ export class MembersService {
 
         return members
     }
+
+    async findByEmail(email: string): Promise<Member | null> {
+        const member = await this.membersRepository.findOneBy({ email })
+
+        return member
+    }
 }

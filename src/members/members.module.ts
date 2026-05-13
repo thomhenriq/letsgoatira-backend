@@ -9,5 +9,6 @@ import { MembersService } from './members.service';
   imports: [TypeOrmModule.forFeature([Member]), StorageModule],
   providers: [MembersService],
   controllers: [MembersController],
+  exports: [MembersService]
 })
 export class MembersModule {}
