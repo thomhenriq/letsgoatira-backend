@@ -1,0 +1,14 @@
+import { StorageModule } from '@/storage/storage.module';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Member } from './entities/member.entity';
+import { MembersController } from './members.controller';
+import { MembersService } from './members.service';
+
+@Module({
+  imports: [TypeOrmModule.forFeature([Member]), StorageModule],
+  providers: [MembersService],
+  controllers: [MembersController],
+  exports: [MembersService],
+})
+export class MembersModule {}
