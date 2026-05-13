@@ -9,8 +9,12 @@ import { Attendance } from './entities/attendance.entity';
 import { MembersModule } from '@/members/members.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Event, Location, Attendance]), StorageModule, MembersModule],
+  imports: [
+    TypeOrmModule.forFeature([Event, Location, Attendance]),
+    StorageModule,
+    MembersModule,
+  ],
   controllers: [EventsController],
-  providers: [EventsService]
+  providers: [EventsService],
 })
 export class EventsModule {}

@@ -1,4 +1,4 @@
 export interface IUploadFile {
-    key: string
-    url: string
+  key: string;
+  url: string;
 }

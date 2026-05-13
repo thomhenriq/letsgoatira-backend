@@ -1,40 +1,35 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm"
-import { Event } from "./event.entity"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Event } from './event.entity';
 
-@Entity("locations")
+@Entity('locations')
 export class Location {
-  @PrimaryGeneratedColumn("uuid")
-  id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
-  name: string
+  name: string;
 
   @Column()
-  city: string
+  city: string;
 
   @Column()
-  state: string
+  state: string;
 
   @Column()
-  country: string
+  country: string;
 
-  @Column("decimal", {
+  @Column('decimal', {
     precision: 10,
     scale: 8,
   })
-  latitude: number
+  latitude: number;
 
-  @Column("decimal", {
+  @Column('decimal', {
     precision: 11,
     scale: 8,
   })
-  longitude: number
+  longitude: number;
 
   @OneToMany(() => Event, (event) => event.location)
-  events: Event[]
+  events: Event[];
 }

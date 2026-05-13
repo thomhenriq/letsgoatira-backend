@@ -1,17 +1,17 @@
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Event } from "./event.entity";
-import { Member } from "@/members/entities/member.entity";
+import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Event } from './event.entity';
+import { Member } from '@/members/entities/member.entity';
 
-@Entity("attendances")
+@Entity('attendances')
 export class Attendance {
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @ManyToOne(() => Event)
-    @JoinColumn()
-    event: Event
+  @ManyToOne(() => Event)
+  @JoinColumn()
+  event: Event;
 
-    @ManyToOne(() => Member)
-    @JoinColumn()
-    member: Member
+  @ManyToOne(() => Member)
+  @JoinColumn()
+  member: Member;
 }

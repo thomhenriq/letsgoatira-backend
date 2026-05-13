@@ -1,5 +1,5 @@
 export interface IAddAttendance {
-    email: string
-    message: string
-    success: boolean
+  email: string;
+  message: string;
+  success: boolean;
 }

@@ -4,34 +4,34 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn
-} from "typeorm"
-import { Attendance } from "./attendance.entity"
-import { Location } from "./location.entity"
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Attendance } from './attendance.entity';
+import { Location } from './location.entity';
 
-@Entity("events")
+@Entity('events')
 export class Event {
-  @PrimaryGeneratedColumn("uuid")
-  id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
-  title: string
+  title: string;
 
-  @Column("text")
-  description: string
-
-  @Column()
-  date: Date
+  @Column('text')
+  description: string;
 
   @Column()
-  coverImageUrl: string
+  date: Date;
+
+  @Column()
+  coverImageUrl: string;
 
   @ManyToOne(() => Location, {
-    cascade: true
+    cascade: true,
   })
   @JoinColumn()
-  location: Location
+  location: Location;
 
   @OneToMany(() => Attendance, (attendance) => attendance.event)
-  attendances: Attendance[]
+  attendances: Attendance[];
 }
