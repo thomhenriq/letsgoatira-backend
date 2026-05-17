@@ -18,9 +18,7 @@ export class Photo {
   @Column()
   url: string;
 
-  @ManyToOne(() => Event, (event) => event.photos, {
-    cascade: true,
-  })
+  @ManyToOne(() => Event, (event) => event.photos)
   @JoinColumn()
   event: Event;
 }

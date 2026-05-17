@@ -48,7 +48,7 @@ export class StorageService {
 
     await this.storage.send(objectCommand);
 
-    const fileUrl = `${this.publicUrl}/${fileKey}`;
+    const fileUrl = `${this.publicUrl}${fileKey}`;
 
     return {
       key: fileKey,
