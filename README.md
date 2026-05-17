@@ -1,98 +1,176 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<img src="./assets/logo.png" alt="Let's Go Atira Logo" width="100%" style="margin: 0 auto"/>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Let's go Atira — API
 
-## Description
+API do projeto **Let's go Atira**, uma plataforma para registrar e guardar os momentos dos eventos do MEJ (Movimento Empresa Júnior) da **Atria Jr.** — a empresa júnior da Faculdade de Tecnologia da Unicamp Limeira.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+O **Atira** é o mascote da Atria Jr. e dá nome ao projeto.
 
-## Project setup
+🔗 **Base URL:** `https://letsgoatira-backend.onrender.com`
 
-```bash
-$ npm install
-```
+---
 
-## Compile and run the project
+## 🛠️ Tecnologias
 
-```bash
-# development
-$ npm run start
+- [NestJS](https://nestjs.com/) — framework Node.js para construção da API
+- [TypeORM](https://typeorm.io/) — ORM para mapeamento das entidades
+- [PostgreSQL](https://www.postgresql.org/) — banco de dados relacional
+- [AWS S3 (compatível)](https://aws.amazon.com/s3/) — armazenamento de arquivos (imagens/fotos), configurado via Supabase Storage
+- [class-validator](https://github.com/typestack/class-validator) — validação de dados de entrada
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+### Roles de membro
 
-## Run tests
+| Valor | Descrição |
+|---|---|
+| `trainee` | Trainee |
+| `advisor` | Assessor |
+| `coordinator` | Coordenador |
+| `director` | Diretor |
+
+---
+
+## 🚀 Como rodar localmente
+
+### Pré-requisitos
+
+- Node.js 20+
+- PostgreSQL rodando localmente ou via Docker
+- Bucket S3-compatível (ex: Supabase Storage)
+
+### Instalação
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+### Variáveis de ambiente
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Copie o arquivo de exemplo e preencha com suas credenciais:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+cp .env.example .env
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+| Variável | Descrição |
+|---|---|
+| `DATABASE_URL` | URL de conexão com o PostgreSQL |
+| `STORAGE_REGION` | Região do bucket de armazenamento |
+| `STORAGE_ENDPOINT` | Endpoint do serviço S3-compatível |
+| `STORAGE_PUBLIC_URL` | URL pública base para acesso aos arquivos |
+| `STORAGE_BUCKET` | Nome do bucket |
+| `SUPABASE_ACCESS_KEY_ID` | Access Key ID do Supabase Storage |
+| `SUPABASE_SECRET_ACCESS_KEY` | Secret Access Key do Supabase Storage |
 
-## Resources
+### Rodando
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# desenvolvimento
+npm run start:dev
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# produção
+npm run build
+npm run start:prod
+```
 
-## Support
+A API sobe por padrão na porta `3000`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 📡 Endpoints
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Members
 
-## License
+| Método | Rota | Descrição |
+|---|---|---|
+| `POST` | `/members` | Cadastra um novo membro |
+| `GET` | `/members` | Lista todos os membros (filtro opcional por `role`) |
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#### POST /members
+
+Aceita `multipart/form-data`:
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `name` | string | ✅ | Nome do membro |
+| `email` | string | ✅ | Email `@atriajr.com.br` |
+| `role` | enum | ✅ | `trainee`, `advisor`, `coordinator` ou `director` |
+| `avatar` | file | ✅ | Foto de perfil do membro |
+
+#### GET /members
+
+| Query param | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `role` | enum | ❌ | Filtra por cargo |
+
+---
+
+### Events
+
+| Método | Rota | Descrição |
+|---|---|---|
+| `POST` | `/events` | Cria um novo evento |
+| `GET` | `/events` | Lista todos os eventos |
+| `GET` | `/events/:id` | Busca um evento pelo ID |
+| `POST` | `/events/:id/attendances` | Registra presenças em um evento |
+| `POST` | `/events/:id/photos` | Adiciona fotos a um evento |
+| `DELETE` | `/events/:id/photos/:photoId` | Remove uma foto de um evento |
+
+#### POST /events
+
+Aceita `multipart/form-data`:
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `title` | string | ✅ | Título do evento |
+| `description` | string | ✅ | Descrição do evento |
+| `date` | string (ISO 8601) | ✅ | Data do evento |
+| `location` | JSON string | ✅ | Objeto com os dados de localização |
+| `coverImage` | file | ✅ | Imagem de capa do evento |
+
+#### POST /events/:id/attendances
+
+```json
+{
+  "emails": ["membro@atriajr.com.br", "outro@atriajr.com.br"]
+}
+```
+
+Apenas emails do domínio `@atriajr.com.br` são aceitos.
+
+#### POST /events/:id/photos
+
+Aceita `multipart/form-data` com o campo `photos` (múltiplos arquivos).
+
+---
+
+## 📁 Estrutura do projeto
+
+```
+src/
+├── events/
+│   ├── dtos/          # Validação de entrada
+│   ├── entities/      # Entidades do banco (Event, Attendance, Location, Photo)
+│   ├── interfaces/
+│   ├── events.controller.ts
+│   ├── events.service.ts
+│   └── events.module.ts
+├── members/
+│   ├── dtos/
+│   ├── entities/      # Entidade Member
+│   ├── members.controller.ts
+│   ├── members.service.ts
+│   └── members.module.ts
+├── storage/           # Integração com S3 (upload de arquivos)
+├── pipes/             # Pipe de validação de tamanho de arquivo
+├── app.module.ts
+└── main.ts
+```
+
+---
+
+## 🏢 Sobre a Atria Jr.
+
+A [Atria Jr.](https://atriajr.com.br) é a empresa júnior da Faculdade de Tecnologia (FT) da Unicamp, campus Limeira. Faz parte do MEJ — Movimento Empresa Júnior — e desenvolve projetos de tecnologia com impacto real.
