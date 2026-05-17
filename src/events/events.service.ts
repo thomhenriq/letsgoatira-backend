@@ -29,7 +29,7 @@ export class EventsService {
 
     private storageService: StorageService,
     private membersService: MembersService,
-  ) {}
+  ) { }
 
   async create(
     body: CreateEventDto,
@@ -63,24 +63,32 @@ export class EventsService {
   }
 
   async list(): Promise<Event[]> {
-    const events = await this.eventsRepository
-      .createQueryBuilder('event')
-      .leftJoinAndSelect('event.location', 'location')
-      .leftJoinAndSelect('event.photos', 'photos')
-      .loadRelationCountAndMap('event.attendancesCount', 'event.attendances')
-      .getMany();
+    const events = await this.eventsRepository.find({
+      relations: {
+        location: true,
+        photos: true,
+        attendances: {
+          member: true
+        }
+      }
+    })
 
     return events;
   }
 
   async findById(id: string): Promise<Event | null> {
-    const event = await this.eventsRepository
-      .createQueryBuilder('event')
-      .leftJoinAndSelect('event.location', 'location')
-      .leftJoinAndSelect('event.photos', 'photos')
-      .loadRelationCountAndMap('event.attendancesCount', 'event.attendances')
-      .where('event.id = :id', { id })
-      .getOne();
+    const event = await this.eventsRepository.findOne({
+      where: {
+        id
+      },
+      relations: {
+        location: true,
+        photos: true,
+        attendances: {
+          member: true
+        }
+      }
+    })
 
     return event;
   }
