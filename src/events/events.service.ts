@@ -57,7 +57,6 @@ export class EventsService {
       location: location,
     });
 
-    await this.locationsRepository.save(location);
     await this.eventsRepository.save(event);
 
     return event;
@@ -67,6 +66,7 @@ export class EventsService {
     const events = await this.eventsRepository
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.location', 'location')
+      .leftJoinAndSelect('event.photos', 'photos')
       .loadRelationCountAndMap('event.attendancesCount', 'event.attendances')
       .getMany();
 
@@ -77,6 +77,7 @@ export class EventsService {
     const event = await this.eventsRepository
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.location', 'location')
+      .leftJoinAndSelect('event.photos', 'photos')
       .loadRelationCountAndMap('event.attendancesCount', 'event.attendances')
       .where('event.id = :id', { id })
       .getOne();
@@ -168,7 +169,7 @@ export class EventsService {
       );
 
       const createdPhoto = this.photosRepository.create({
-        event: event,
+        event: { id: event.id },
         url: uploadedPhoto.url,
         key: uploadedPhoto.key,
       });
